@@ -1,0 +1,1056 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fey X. — Software Engineer</title>
+  <meta name="description" content="Fey X. — Software Engineer. CS student at Carleton University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:            #0a0e1a;
+      --surface:       #111827;
+      --surface2:      #0d1527;
+      --border:        #1e2d45;
+      --text:          #e2e8f0;
+      --muted:         #94a3b8;
+      --subtle:        #3d5068;
+      --accent:        #5eead4;
+      --accent-dim:    rgba(94, 234, 212, 0.07);
+      --accent-border: rgba(94, 234, 212, 0.18);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── BACKGROUND ── */
+    .bg-grid {
+      position: fixed;
+      inset: -60px;
+      pointer-events: none;
+      z-index: 0;
+      background-image:
+        linear-gradient(rgba(94,234,212,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(94,234,212,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      will-change: transform;
+    }
+
+    .bg-spot {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      background: radial-gradient(600px circle at var(--mx,-200px) var(--my,-200px), rgba(94,234,212,0.045), transparent 80%);
+    }
+
+    /* ── TOP NAV ── */
+    .topnav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 52px;
+      z-index: 50;
+      background: rgba(10, 14, 26, 0.82);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .topnav-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 52px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .topnav-logo {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+    }
+
+    .topnav-logo:hover { opacity: 1; }
+
+    .top-tabs {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+    }
+
+    .top-tab {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      transition: color 0.2s, background 0.2s;
+      letter-spacing: -0.1px;
+    }
+
+    .top-tab:hover { color: var(--text); }
+
+    .top-tab.active {
+      color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    /* ── LAYOUT ── */
+    .layout {
+      display: flex;
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 52px 52px 0;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* ── SIDEBAR ── */
+    aside {
+      width: 340px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 52px;
+      height: calc(100vh - 52px);
+      padding: 52px 0 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .s-name {
+      font-size: 44px;
+      font-weight: 700;
+      letter-spacing: -1.4px;
+      color: var(--text);
+      line-height: 1.05;
+      margin-bottom: 10px;
+    }
+
+    .s-role {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 18px;
+    }
+
+    .s-bio {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.72;
+      max-width: 290px;
+    }
+
+    .s-nav { margin-top: 56px; }
+    .s-nav ul { list-style: none; }
+    .s-nav li { margin-bottom: 2px; }
+
+    .nav-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      text-decoration: none;
+      color: var(--subtle);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 7px 0;
+      transition: color 0.2s;
+    }
+
+    .nav-line {
+      display: block;
+      height: 1px;
+      width: 28px;
+      background: currentColor;
+      transition: width 0.25s ease;
+    }
+
+    .nav-link { color: var(--muted); }
+    .nav-link:hover,
+    .nav-link.active { color: var(--text); }
+    .nav-link:hover .nav-line,
+    .nav-link.active .nav-line { width: 60px; }
+
+    .socials {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: auto;
+      padding-top: 36px;
+    }
+
+    .soc {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .soc:hover {
+      color: var(--accent);
+      border-color: var(--accent-border);
+      background: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .soc svg { width: 20px; height: 20px; }
+
+    /* ── MAIN ── */
+    main {
+      flex: 1;
+      padding: 52px 0 120px 80px;
+      min-width: 0;
+    }
+
+    section { margin-bottom: 104px; scroll-margin-top: 52px; }
+
+    .sec-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 44px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .sec-label::after {
+      content: '';
+      display: block;
+      flex: 1;
+      max-width: 160px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* ── STACK ── */
+    .stack-intro {
+      font-size: 18px;
+      color: var(--muted);
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+
+    .stack-intro strong { color: var(--text); font-weight: 500; }
+
+    .stack-group {
+      margin-bottom: 32px;
+    }
+
+    .stack-group:last-child { margin-bottom: 0; }
+
+    .stack-cat {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .stack-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skl {
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 5px 15px 6px;
+      border-radius: 999px;
+    }
+
+    /* ── ABOUT ── */
+    .about-p {
+      font-size: 18px;
+      color: var(--muted);
+      line-height: 1.82;
+      margin-bottom: 16px;
+    }
+
+    .about-p strong { color: var(--text); font-weight: 500; }
+
+    .about-p a {
+      color: var(--text);
+      font-weight: 500;
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .about-p a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── TIMELINE ── */
+    .timeline { display: flex; flex-direction: column; }
+
+    .tl-entry { display: flex; gap: 24px; }
+
+    .tl-left {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex-shrink: 0;
+      width: 48px;
+    }
+
+    .tl-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 11px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      flex-shrink: 0;
+      transition: transform 0.2s ease, border-color 0.2s;
+    }
+
+    .tl-entry:hover .tl-logo {
+      transform: scale(1.07);
+      border-color: var(--accent-border);
+    }
+
+    .tl-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .tl-connector {
+      width: 1px;
+      background: var(--border);
+      flex: 1;
+      margin-top: 10px;
+      min-height: 20px;
+    }
+
+    .tl-entry:last-child .tl-connector { display: none; }
+
+    .tl-body {
+      flex: 1;
+      padding-top: 4px;
+      padding-bottom: 52px;
+    }
+
+    .tl-entry:last-child .tl-body { padding-bottom: 0; }
+
+    .tl-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 10px;
+    }
+
+    .tl-company {
+      font-size: 19px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+      transition: color 0.2s;
+    }
+
+    .tl-entry:hover .tl-company { color: var(--accent); }
+
+    .tl-company-link {
+      color: inherit;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .tl-arr {
+      width: 14px;
+      height: 14px;
+      opacity: 0;
+      transition: opacity 0.15s, transform 0.15s;
+      flex-shrink: 0;
+    }
+
+    .tl-entry:hover .tl-company-link .tl-arr { opacity: 1; transform: translate(2px,-2px); }
+
+    .tl-role {
+      font-size: 15.5px;
+      color: var(--muted);
+    }
+
+    .tl-date {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--muted);
+      letter-spacing: 0.2px;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding-top: 3px;
+    }
+
+    .tl-desc {
+      font-size: 17px;
+      color: var(--muted);
+      line-height: 1.78;
+      margin-bottom: 20px;
+    }
+
+    /* tech icon tiles */
+    .ti-row { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .ti {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      cursor: default;
+      user-select: none;
+      flex-shrink: 0;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .ti:hover { border-color: var(--accent-border); transform: translateY(-2px); }
+    .ti img { width: 20px; height: 20px; object-fit: contain; display: block; }
+
+    .ti::after {
+      content: attr(data-tip);
+      position: absolute;
+      bottom: calc(100% + 8px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1e293b;
+      color: #e2e8f0;
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 10px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.15s;
+      z-index: 10;
+    }
+
+    .ti:hover::after { opacity: 1; }
+
+    /* ── PROJECTS ── */
+    .proj-card {
+      display: grid;
+      grid-template-columns: 100px 1fr;
+      column-gap: 24px;
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid transparent;
+      text-decoration: none;
+      color: inherit;
+      margin: 0 -24px;
+      margin-bottom: 4px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: background 0.2s, border-color 0.2s, opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .proj-card.visible { opacity: 1; transform: none; }
+    .proj-card:last-child { margin-bottom: 0; }
+    .proj-card:hover { background: var(--surface); border-color: var(--border); }
+
+    .proj-year {
+      padding-top: 3px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--subtle);
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .proj-name {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: color 0.2s;
+    }
+
+    .proj-card:hover .proj-name { color: var(--accent); }
+
+    .proj-arr {
+      width: 15px;
+      height: 15px;
+      opacity: 0;
+      color: var(--accent);
+      flex-shrink: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .proj-card:hover .proj-arr { opacity: 1; transform: translate(3px,-3px); }
+
+    .proj-ul {
+      list-style: none;
+      margin-bottom: 18px;
+    }
+
+    .proj-ul li {
+      font-size: 16.5px;
+      color: var(--muted);
+      line-height: 1.78;
+      padding-left: 20px;
+      position: relative;
+      margin-bottom: 7px;
+    }
+
+    .proj-ul li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      top: 6px;
+      color: var(--accent);
+      font-size: 10px;
+      opacity: 0.7;
+    }
+
+    code {
+      font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 13.5px;
+      background: var(--accent-dim);
+      color: var(--accent);
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+
+    .proj-tags { display: flex; flex-wrap: wrap; gap: 7px; }
+
+    .ptag {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent);
+      background: var(--accent-dim);
+      border: 1px solid var(--accent-border);
+      padding: 4px 13px 5px;
+      border-radius: 999px;
+    }
+
+    /* ── EDUCATION ── */
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px 32px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .edu-card.visible { opacity: 1; transform: none; }
+
+    .edu-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    /* logo column matches edu-lbl width so text aligns with GPA value */
+    .edu-logo-col {
+      min-width: 64px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .edu-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      background: var(--surface2);
+    }
+
+    .edu-logo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .edu-right { flex: 1; min-width: 0; }
+
+    .edu-school {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .edu-meta {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .edu-deg {
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .edu-loc {
+      font-size: 13px;
+      color: var(--subtle);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .edu-row {
+      display: flex;
+      gap: 18px;
+      font-size: 15px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      line-height: 1.68;
+    }
+
+    .edu-lbl {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      padding-top: 3px;
+      min-width: 64px;
+      flex-shrink: 0;
+    }
+
+    .edu-awards {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .edu-awards li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 4px;
+      line-height: 1.6;
+    }
+
+    .edu-awards li::before {
+      content: '▸';
+      position: absolute;
+      left: 0;
+      top: 4px;
+      color: var(--accent);
+      font-size: 9px;
+      opacity: 0.7;
+    }
+
+    /* ── FOOTER ── */
+    footer { font-size: 14px; color: var(--subtle); }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    footer a:hover { color: var(--accent); border-color: var(--accent); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 840px) {
+      .topnav-logo { display: none; }
+      .layout { flex-direction: column; padding: 52px 24px 0; }
+
+      aside {
+        width: 100%;
+        position: static;
+        height: auto;
+        padding: 40px 0 0;
+      }
+
+      .s-nav { display: none; }
+      .socials { margin-top: 32px; padding-top: 0; }
+      main { padding: 40px 0 100px; }
+      section { margin-bottom: 72px; }
+
+      .tl-header { flex-direction: column; gap: 3px; }
+
+      .proj-card {
+        grid-template-columns: 1fr;
+        gap: 4px;
+        margin: 0 -12px;
+        padding: 16px 12px;
+      }
+
+      .edu-meta { flex-direction: column; gap: 2px; }
+      .edu-card { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-grid" id="bgGrid"></div>
+<div class="bg-spot"></div>
+
+<header class="topnav">
+  <div class="topnav-inner">
+    <a href="#about" class="topnav-logo">Fey X.</a>
+    <nav class="top-tabs">
+      <a href="#about"      class="top-tab active">About</a>
+      <a href="#stack"      class="top-tab">Stack</a>
+      <a href="#experience" class="top-tab">Experience</a>
+      <a href="#projects"   class="top-tab">Projects</a>
+      <a href="#education"  class="top-tab">Education</a>
+    </nav>
+  </div>
+</header>
+
+<div class="layout">
+
+  <!-- ── SIDEBAR ── -->
+  <aside>
+    <h1 class="s-name">Fey X.</h1>
+    <p class="s-role">Software Engineer</p>
+    <p class="s-bio">CS student at Carleton building developer tools, full-stack platforms, and backend systems.</p>
+
+    <nav class="s-nav">
+      <ul>
+        <li><a href="#about"      class="nav-link active"><span class="nav-line"></span>About</a></li>
+        <li><a href="#stack"      class="nav-link"><span class="nav-line"></span>Stack</a></li>
+        <li><a href="#experience" class="nav-link"><span class="nav-line"></span>Experience</a></li>
+        <li><a href="#projects"   class="nav-link"><span class="nav-line"></span>Projects</a></li>
+        <li><a href="#education"  class="nav-link"><span class="nav-line"></span>Education</a></li>
+      </ul>
+    </nav>
+
+    <div class="socials">
+      <a href="https://github.com/shacha13" target="_blank" rel="noopener noreferrer" class="soc" title="GitHub">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2Z"/>
+        </svg>
+      </a>
+      <a href="https://linkedin.com/in/feyx" target="_blank" rel="noopener noreferrer" class="soc" title="LinkedIn">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+        </svg>
+      </a>
+    </div>
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <p class="sec-label">About</p>
+      <p class="about-p">
+        I'm a <strong>Computer Science student</strong> at <a href="https://carleton.ca" target="_blank" rel="noopener">Carleton University</a> (AI/ML honours, 3.97 GPA), currently interning at <strong>IBM Canada</strong> where I build developer tooling and backend infrastructure. I work across the stack — from performance-critical systems to real-time frontends.
+      </p>
+      <p class="about-p">
+        I care about writing software that is <strong>fast, clear, and actually useful</strong>.
+      </p>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack">
+      <p class="sec-label">Stack</p>
+      <p class="stack-intro">Things I've worked with:</p>
+
+      <div class="stack-group">
+        <p class="stack-cat">Languages</p>
+        <div class="stack-badges">
+          <span class="skl">Python</span>
+          <span class="skl">TypeScript</span>
+          <span class="skl">Java</span>
+          <span class="skl">C++</span>
+          <span class="skl">Go</span>
+          <span class="skl">SQL</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <p class="stack-cat">Frameworks &amp; Tools</p>
+        <div class="stack-badges">
+          <span class="skl">React</span>
+          <span class="skl">Node.js</span>
+          <span class="skl">Spring Boot</span>
+          <span class="skl">Next.js</span>
+          <span class="skl">FastAPI</span>
+          <span class="skl">LangChain</span>
+          <span class="skl">Docker</span>
+          <span class="skl">AWS</span>
+        </div>
+      </div>
+
+      <div class="stack-group">
+        <p class="stack-cat">Databases</p>
+        <div class="stack-badges">
+          <span class="skl">SQLite</span>
+          <span class="skl">PostgreSQL</span>
+          <span class="skl">Redis</span>
+          <span class="skl">MongoDB</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+      <p class="sec-label">Experience</p>
+
+      <div class="timeline">
+
+        <!-- IBM -->
+        <div class="tl-entry">
+          <div class="tl-left">
+            <div class="tl-logo">
+              <img src="https://substackcdn.com/image/fetch/$s_!aFzv!,f_auto,q_auto:good,fl_progressive:steep/https%3A%2F%2Fsubstack-post-media.s3.amazonaws.com%2Fpublic%2Fimages%2Fa27a43b7-f1ec-4586-9898-5f43c9b7cdbf_1000x1000.jpeg" alt="IBM">
+            </div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <p class="tl-company">
+                  <a href="https://www.ibm.com" target="_blank" rel="noopener" class="tl-company-link">
+                    IBM Canada Ltd.
+                    <svg class="tl-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+                  </a>
+                </p>
+                <p class="tl-role">Software Engineer Intern &nbsp;·&nbsp; Ontario, Canada</p>
+              </div>
+              <span class="tl-date">Jan 2026 — Present</span>
+            </div>
+            <p class="tl-desc">Built developer tooling and backend services for C++ codebases — including a SQLite-backed indexing platform, Python telemetry pipelines, and on-device SLM integration on NVIDIA Jetson hardware.</p>
+            <div class="ti-row">
+              <div class="ti" data-tip="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
+              <div class="ti" data-tip="Python"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" alt="Python"></div>
+              <div class="ti" data-tip="AWS"><img src="https://raw.githubusercontent.com/lobehub/lobe-icons/refs/heads/master/packages/static-avatar/avatars/aws.webp" alt="AWS"></div>
+              <div class="ti" data-tip="C++"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" alt="C++"></div>
+              <div class="ti" data-tip="Node.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
+              <div class="ti" data-tip="SQLite"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqlite/sqlite-original.svg" alt="SQLite"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stealth Startup -->
+        <div class="tl-entry">
+          <div class="tl-left">
+            <div class="tl-logo">
+              <img src="https://media.licdn.com/dms/image/v2/C4E0BAQEHs1C2gRRukA/company-logo_200_200/company-logo_200_200/0/1630652289773/stealth_startup_tlv_logo?e=2147483647&v=beta&t=goldEnKkZ03QaU2vOzyBTkydCgtBFnzW6NYBI2fp11I" alt="Stealth Startup">
+            </div>
+            <div class="tl-connector"></div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <p class="tl-company">Stealth Startup</p>
+                <p class="tl-role">Software Engineer Intern &nbsp;·&nbsp; Remote</p>
+              </div>
+              <span class="tl-date">Jun — Sep 2025</span>
+            </div>
+            <p class="tl-desc">Built a full-stack platform with React, Node.js, and Supabase — covering auth flows, database architecture, and Stripe billing integration.</p>
+            <div class="ti-row">
+              <div class="ti" data-tip="React"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" alt="React"></div>
+              <div class="ti" data-tip="Node.js"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg" alt="Node.js"></div>
+              <div class="ti" data-tip="Supabase"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg" alt="Supabase"></div>
+              <div class="ti" data-tip="PostgreSQL"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg" alt="PostgreSQL"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Government of Canada -->
+        <div class="tl-entry">
+          <div class="tl-left">
+            <div class="tl-logo">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9B1BT9g1ZWsVa4vgB399cwaz_SAOIcPYAKQ&s" alt="Government of Canada">
+            </div>
+          </div>
+          <div class="tl-body">
+            <div class="tl-header">
+              <div>
+                <p class="tl-company">Government of Canada</p>
+                <p class="tl-role">Software Developer Intern &nbsp;·&nbsp; Ontario, Canada</p>
+              </div>
+              <span class="tl-date">Jan — Sep 2025</span>
+            </div>
+            <p class="tl-desc">Developed JavaScript frontend workflows and refactored C# backend services for a government portal serving 20,000+ monthly users.</p>
+            <div class="ti-row">
+              <div class="ti" data-tip="JavaScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" alt="JavaScript"></div>
+              <div class="ti" data-tip="TypeScript"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" alt="TypeScript"></div>
+              <div class="ti" data-tip="SQL"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwuqWn7rCVhqZ_pSlxwVUzlZtFWaOMdbm28A&s" alt="SQL"></div>
+              <div class="ti" data-tip="jQuery"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/jquery/jquery-original.svg" alt="jQuery"></div>
+              <div class="ti" data-tip="C#"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/csharp/csharp-original.svg" alt="C#"></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects">
+      <p class="sec-label">Projects</p>
+
+      <a href="https://github.com/shacha13" target="_blank" rel="noopener" class="proj-card">
+        <div class="proj-year">2025</div>
+        <div>
+          <p class="proj-name">
+            Low-Latency Order Matching Engine
+            <svg class="proj-arr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M7 7h10v10"/></svg>
+          </p>
+          <ul class="proj-ul">
+            <li>Lock-free order book in Java using <code>ConcurrentSkipListMap</code> with price-time priority — 50,000+ orders/sec at O(log n)</li>
+            <li>Sub-millisecond latency via Disruptor-pattern ring buffer and object pooling</li>
+            <li>React/TypeScript WebSocket frontend backed by Spring Boot REST APIs and Redis for distributed state</li>
+            <li>Deployed on AWS EC2 with CloudWatch monitoring</li>
+          </ul>
+          <div class="proj-tags">
+            <span class="ptag">Java</span>
+            <span class="ptag">Spring Boot</span>
+            <span class="ptag">React</span>
+            <span class="ptag">TypeScript</span>
+            <span class="ptag">Redis</span>
+            <span class="ptag">AWS</span>
+            <span class="ptag">WebSocket</span>
+          </div>
+        </div>
+      </a>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <p class="sec-label">Education</p>
+      <div class="edu-card">
+        <div class="edu-top">
+          <div class="edu-logo-col">
+            <div class="edu-logo">
+              <img src="https://challenge.carleton.ca/wp-content/uploads/2022/02/fav-icon.png" alt="Carleton University">
+            </div>
+          </div>
+          <div class="edu-right">
+            <p class="edu-school">Carleton University</p>
+            <div class="edu-meta">
+              <p class="edu-deg">B.Sc. Computer Science (Honours) &nbsp;·&nbsp; AI/ML &nbsp;·&nbsp; Expected Dec 2027</p>
+              <span class="edu-loc">Ontario, Canada</span>
+            </div>
+          </div>
+        </div>
+        <div class="edu-row">
+          <span class="edu-lbl">GPA</span>
+          <span>3.97 / 4.00</span>
+        </div>
+        <div class="edu-row">
+          <span class="edu-lbl">Awards</span>
+          <ul class="edu-awards">
+            <li>Entrance Scholarship (4 &times; $4,000 Renewable)</li>
+            <li>Dean's List (2025, 2026)</li>
+            <li>Ananmalay Scholarship</li>
+          </ul>
+        </div>
+        <div class="edu-row">
+          <span class="edu-lbl">Courses</span>
+          <span>Data Structures &amp; Algorithms, Software Engineering, Databases, Systems Programming, Discrete Structures, Web Applications</span>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      &copy; 2026 Fey X. &nbsp;·&nbsp; <a href="https://feyx.ca">feyx.ca</a>
+    </footer>
+
+  </main>
+</div>
+
+<script>
+  // cursor spotlight
+  document.addEventListener('mousemove', e => {
+    document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+    document.documentElement.style.setProperty('--my', e.clientY + 'px');
+  });
+
+  // grid parallax
+  const bgGrid = document.getElementById('bgGrid');
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+
+  document.addEventListener('mousemove', e => {
+    tx = (e.clientX / window.innerWidth  - 0.5) * 18;
+    ty = (e.clientY / window.innerHeight - 0.5) * 18;
+  });
+
+  (function tick() {
+    cx += (tx - cx) * 0.04;
+    cy += (ty - cy) * 0.04;
+    bgGrid.style.transform = `translate(${cx.toFixed(2)}px, ${cy.toFixed(2)}px)`;
+    requestAnimationFrame(tick);
+  })();
+
+  // active nav — keeps sidebar links and top tabs in sync
+  const sections  = Array.from(document.querySelectorAll('section[id]'));
+  const sideLinks = document.querySelectorAll('.nav-link');
+  const topTabs   = document.querySelectorAll('.top-tab');
+
+  function updateNav() {
+    let current = sections[0].id;
+    for (const s of sections) {
+      if (s.getBoundingClientRect().top <= 120) current = s.id;
+    }
+    const target = '#' + current;
+    sideLinks.forEach(l => l.classList.toggle('active', l.getAttribute('href') === target));
+    topTabs.forEach(l => l.classList.toggle('active', l.getAttribute('href') === target));
+  }
+
+  window.addEventListener('scroll', updateNav, { passive: true });
+  updateNav();
+
+  // scroll-reveal
+  const revealEls = document.querySelectorAll('.proj-card, .edu-card');
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+
+  revealEls.forEach(el => io.observe(el));
+
+</script>
+
+</body>
+</html>
