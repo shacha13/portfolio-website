@@ -35,7 +35,6 @@
       overflow-x: hidden;
     }
 
-    /* ── BACKGROUND ── */
     .bg-grid {
       position: fixed;
       inset: -60px;
@@ -55,8 +54,6 @@
       z-index: 1;
       background: radial-gradient(600px circle at var(--mx,-200px) var(--my,-200px), rgba(94,234,212,0.045), transparent 80%);
     }
-
-    /* ── TOP NAV ── */
     .topnav {
       position: fixed;
       top: 0;
@@ -116,7 +113,6 @@
       background: var(--accent-dim);
     }
 
-    /* ── LAYOUT ── */
     .layout {
       display: flex;
       max-width: 1160px;
@@ -126,7 +122,6 @@
       z-index: 2;
     }
 
-    /* ── SIDEBAR ── */
     aside {
       width: 340px;
       flex-shrink: 0;
@@ -223,7 +218,6 @@
 
     .soc svg { width: 20px; height: 20px; }
 
-    /* ── MAIN ── */
     main {
       flex: 1;
       padding: 52px 0 120px 80px;
@@ -253,7 +247,6 @@
       background: var(--border);
     }
 
-    /* ── STACK ── */
     .stack-intro {
       font-size: 18px;
       color: var(--muted);
@@ -294,7 +287,6 @@
       border-radius: 999px;
     }
 
-    /* ── ABOUT ── */
     .about-p {
       font-size: 18px;
       color: var(--muted);
@@ -314,7 +306,6 @@
 
     .about-p a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* ── TIMELINE ── */
     .timeline { display: flex; flex-direction: column; }
 
     .tl-entry { display: flex; gap: 24px; }
@@ -428,7 +419,6 @@
       margin-bottom: 20px;
     }
 
-    /* tech icon tiles */
     .ti-row { display: flex; flex-wrap: wrap; gap: 7px; }
 
     .ti {
@@ -471,7 +461,6 @@
 
     .ti:hover::after { opacity: 1; }
 
-    /* ── PROJECTS ── */
     .proj-card {
       display: grid;
       grid-template-columns: 100px 1fr;
@@ -571,7 +560,6 @@
       border-radius: 999px;
     }
 
-    /* ── EDUCATION ── */
     .edu-card {
       background: var(--surface);
       border: 1px solid var(--border);
@@ -591,7 +579,6 @@
       margin-bottom: 22px;
     }
 
-    /* logo column matches edu-lbl width so text aligns with GPA value */
     .edu-logo-col {
       min-width: 64px;
       flex-shrink: 0;
@@ -682,7 +669,6 @@
       opacity: 0.7;
     }
 
-    /* ── FOOTER ── */
     footer { font-size: 14px; color: var(--subtle); }
 
     footer a {
@@ -694,7 +680,6 @@
 
     footer a:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* ── RESPONSIVE ── */
     @media (max-width: 840px) {
       .topnav-logo { display: none; }
       .layout { flex-direction: column; padding: 52px 24px 0; }
